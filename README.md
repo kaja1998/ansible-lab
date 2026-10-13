@@ -10,6 +10,7 @@ The lab currently consists of two Ubuntu Server virtual machines running in Virt
 
 ### VirtualBox Setup
 Each server runs in its own virtual machine. The machines are connected through a host-only network so they can communicate with each other and with the host computer.
+
 Components:
 - **Virtualization:** Oracle VirtualBox
 - **Operating system:** Ubuntu Server
@@ -19,6 +20,7 @@ Components:
 
 ### SSH Connection
 Ansible runs on Server 1 and connects to Server 2 over SSH. This allows me to execute commands and manage the second server without logging in to it for every task.
+
 I tested the connection with:
 ```bash
 ansible -i inventory/hosts.ini managed -m ping
@@ -47,7 +49,9 @@ ansible-security-lab/
 
 ### 1. Gather System Information
 **File:** `playbooks/gather_info.yml`
+
 Collects information about the managed server using Ansible facts.
+
 Run with:
 ```bash
 ansible-playbook -i inventory/hosts.ini playbooks/gather_info.yml
@@ -55,7 +59,9 @@ ansible-playbook -i inventory/hosts.ini playbooks/gather_info.yml
 
 ### 2. Install curl
 **File:** `playbooks/install_curl.yml`
+
 Installs the `curl` package on the managed server.
+
 Run with:
 ```bash
 ansible-playbook -i inventory/hosts.ini playbooks/install_curl.yml --ask-become-pass
@@ -63,7 +69,9 @@ ansible-playbook -i inventory/hosts.ini playbooks/install_curl.yml --ask-become-
 
 ### 3. Manage Users
 **FILE:** `playbooks/manage_users.yml`
+
 Manage users and permissions.
+
 Run with:
 ```bash
 ansible-playbook -i inventory/hosts.ini playbooks/manage_users.yml -K
