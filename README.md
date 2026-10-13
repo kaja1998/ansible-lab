@@ -64,7 +64,7 @@ Installs the `curl` package on the managed server.
 
 Run with:
 ```bash
-ansible-playbook -i inventory/hosts.ini playbooks/install_curl.yml --ask-become-pass
+ansible-playbook -i inventory/hosts.ini playbooks/install_curl.yml -K
 ```
 
 ### 3. Manage Users
