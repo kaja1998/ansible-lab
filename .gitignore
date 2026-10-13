@@ -1,0 +1,9 @@
+*.retry
+.vault_pass*
+*.pem
+*.key
+id_*
+.ansible/
+__pycache__/
+.vagrant/
+.molecule/

@@ -1,0 +1,48 @@
+
+---
+- name: Gather server information and security configuration
+  hosts: managed
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Show hostname
+      ansible.builtin.debug:
+        msg: "Hostname: {{ ansible_facts['hostname'] }}"
+
+    - name: Show operating system
+      ansible.builtin.debug:
+        msg: "OS: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"
+
+    - name: Show IP addresses
+      ansible.builtin.debug:
+        msg: "IP addresses: {{ ansible_facts['all_ipv4_addresses'] }}"
+
+    - name: Check disk space
+      ansible.builtin.command: df -h /
+      register: disk_space
+      changed_when: false
+
+    - name: Display disk space
+      ansible.builtin.debug:
+        var: disk_space.stdout
+
+    - name: Check SSH service
+      ansible.builtin.command: systemctl is-active ssh
+      register: ssh_status
+      changed_when: false
+      failed_when: false
+
+    - name: Display SSH service status
+      ansible.builtin.debug:
+        msg: "SSH service: {{ ssh_status.stdout | default('unknown') }}"
+
+    - name: Check UFW firewall status
+      ansible.builtin.command: ufw status
+      register: firewall_status
+      changed_when: false
+      failed_when: false
+
+    - name: Display firewall status
+      ansible.builtin.debug:
+        var: firewall_status.stdout

@@ -1,0 +1,38 @@
+---
+- name: Manage users and permissions
+  hosts: managed
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Create security group
+      ansible.builtin.group:
+        name: security
+        state: present
+
+    - name: Create labadmin user
+      ansible.builtin.user:
+        name: labadmin
+        comment: "Security Lab Administrator"
+        groups: security
+        append: true
+        create_home: true
+        shell: /bin/bash
+        state: present
+
+    - name: Create security lab directory
+      ansible.builtin.file:
+        path: /opt/security-lab
+        state: directory
+        owner: root
+        group: security
+        mode: "2770"
+
+    - name: Display user management result
+      ansible.builtin.command: id labadmin
+      register: user_info
+      changed_when: false
+
+    - name: Show user information
+      ansible.builtin.debug:
+        var: user_info.stdout
