@@ -68,7 +68,7 @@ ansible-playbook -i inventory/hosts.ini playbooks/install_curl.yml -K
 ```
 
 ### 3. Manage Users
-**FILE:** `playbooks/manage_users.yml`
+**File:** `playbooks/manage_users.yml`
 
 Manage users and permissions.
 
