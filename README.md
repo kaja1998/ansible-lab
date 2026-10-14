@@ -1,4 +1,4 @@
-# Ansible Security Lab
+# Ansible Lab
 This is my personal lab for learning Ansible. I'm building the environment from scratch and adding new playbooks step by step.
 
 ## Lab Environment
