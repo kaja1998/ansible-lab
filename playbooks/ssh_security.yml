@@ -1,0 +1,15 @@
+---
+- name: Check and harden SSH
+  hosts: managed
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Read current SSH configuration
+      ansible.builtin.command: sshd -T    # command instead of shell because it runs the command directly
+      register: ssh_config_before         # Output saved into variable
+      changed_when: false
+
+    - name: Display current SSH security settings
+      ansible.builtin.debug:
+        msg: "{{ ssh_config_before.stdout_lines | select('match', '^(permitrootlogin|passwordauthentication|pubkeyauthentication|allowusers) ') | list }}"      #Filter rows
